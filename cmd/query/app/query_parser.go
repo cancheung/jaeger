@@ -33,7 +33,7 @@ import (
 )
 
 const (
-	defaultQueryLimit = 100
+	defaultQueryLimit = 20
 
 	operationParam   = "operation"
 	tagParam         = "tag"
@@ -61,9 +61,14 @@ type queryParser struct {
 // parse takes a request and constructs a model of parameters
 // Trace query syntax:
 //     query ::= param | param '&' query
-//     param ::= service | operation | tag
+//     param ::= service | operation | limit | start | end | minDuration | maxDuration | tag
 //     service ::= 'service=' strValue
 //     operation ::= 'operation=' strValue
+//     limit ::= 'limit=' intValue
+//     start ::= 'start=' intValue in unix microseconds
+//     end ::= 'end=' intValue in unix microseconds
+//     minDuration ::= 'minDuration=' strValue (units are "ns", "us" (or "µs"), "ms", "s", "m", "h")
+//     maxDuration ::= 'maxDuration=' strValue (units are "ns", "us" (or "µs"), "ms", "s", "m", "h")
 //     tag ::= 'tag=' key | 'tag=' keyvalue
 //     key := strValue
 //     keyValue := strValue ':' strValue
